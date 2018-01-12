@@ -1,12 +1,9 @@
 ---
 version: 5
-
 defaults:
-  datadir: "data"
+  datadir: data
+  data_hash: yaml_data
 
 hierarchy:
-  - name: 'Yaml backend'
-    data_hash: yaml_data
-    paths:
-      - "nodes/%{trusted.certname}.yaml"
-      - 'common.yaml'
+  - name: 'Puppet Enterprise settings'
+    path: 'pe.yaml'
