@@ -1,0 +1,42 @@
+---
+# Base settings
+profile::base::linux::firewall_defaults:
+  proto: 'tcp'
+  action: 'accept'
+
+# Puppet master settings
+profile::puppet::master::pe_repo_platforms:
+  - el_7_x86_64
+  - ubuntu_1604_amd64
+
+# Load balancer
+profile::load_balancer::listeners:
+  stats:
+    collect_exported: false
+    ipaddress: "%{::ipaddress_eth1}"
+    ports: '9090'
+    options:
+      mode: 'http'
+      stats: ['uri /', 'auth puppet:puppet']
+  puppet00:
+    collect_exported: true
+    ipaddress: "%{::ipaddress_eth1}"
+    ports: '8140'
+    options:
+      mode: 'tcp'
+  orch00:
+    collect_exported: true
+    ipaddress: "%{::ipaddress_eth1}"
+    ports: '8142'
+    options:
+      mode: 'tcp'
+      timeout:
+        - 'tunnel 15m'
+      balance: 'leastconn'
+  mco00:
+    collect_exported: true
+    ipaddress: "%{::ipaddress_eth1}"
+    ports: '61613'
+    options:
+      mode: 'tcp'
+      balance: 'source'

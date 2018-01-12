@@ -1,0 +1,10 @@
+---
+profile::base::linux::firewall_rules:
+  '010 Puppet Server 8140':
+    dport: '8140'
+  '010 PE AMQ 61616':
+    dport: '61616'
+  '010 PE MCO 61613':
+    dport: '61613'
+  '010 PE Orchestrator 8142':
+    dport: '8142'

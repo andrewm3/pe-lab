@@ -1,0 +1,15 @@
+---
+version: 5
+defaults:
+  datadir: data
+  data_hash: yaml_data
+
+hierarchy:
+  - name: 'node-specific'
+    path: "node/%{trusted.certname}.yaml"
+
+  - name: 'role-specific'
+    path: "role/%{trusted.extensions.pp_role}.yaml"
+
+  - name: 'common'
+    path: 'common.yaml'
