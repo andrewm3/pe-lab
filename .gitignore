@@ -1,6 +1,13 @@
-modules/
+# ruby
+Gemfile.lock
+.bundle/
+/vendor/
 
-# Terraform
+# terraform
 .terraform/
 .terraform.*
 terraform.*
+
+# puppet
+modules/
+.onceover/
