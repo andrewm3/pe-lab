@@ -1,0 +1,4 @@
+---
+profile::base::linux::firewall_rules:
+  '010 Jenkins 8080':
+    dport: '8080'
