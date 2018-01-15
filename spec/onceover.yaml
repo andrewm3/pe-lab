@@ -3,6 +3,8 @@ classes:
   - role::gitea
   - role::jenkins
   - role::load_balancer
+  - role::puppet::compile_master
+  - role::puppet::master_of_masters
 
 # Nodes to tests classes on, this refers to a 'factset' or 'nodeset'
 # depending on weather you are running 'spec' or 'acceptance' tests
