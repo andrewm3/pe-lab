@@ -9,6 +9,8 @@ class profile::jenkins (
   Hash[String, String] $plugin_versions = {},
 ) {
 
+  include ::git
+
   class { '::jenkins': }
 
   # Install specified Jenkins plugins

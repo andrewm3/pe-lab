@@ -11,6 +11,7 @@ mod 'WhatsARanjit/node_manager', '0.6.0'
 mod 'rtyler/jenkins',            '1.7.0'
 mod 'puppet/archive',            '2.2.0'
 mod 'puppetlabs/java',           '1.6.0'
+mod 'puppetlabs/git',            '0.5.0'
 
 # Modules from Git
 # Examples: https://github.com/puppetlabs/r10k/blob/master/doc/puppetfile.mkd#examples
