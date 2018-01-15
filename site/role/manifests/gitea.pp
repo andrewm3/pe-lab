@@ -8,4 +8,5 @@
 #   include role::gitea
 class role::gitea {
   require profile::base
+  include profile::gitea
 }

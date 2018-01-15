@@ -1,10 +1,10 @@
 # profile::gitea
 #
-# A description of what this class does
-#
-# @summary A short summary of the purpose of this class
+# Manage a Gitea installation.
 #
 # @example
 #   include profile::gitea
+#
 class profile::gitea {
+  include ::gitea
 }

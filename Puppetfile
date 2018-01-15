@@ -12,6 +12,8 @@ mod 'rtyler/jenkins',            '1.7.0'
 mod 'puppet/archive',            '2.2.0'
 mod 'puppetlabs/java',           '1.6.0'
 mod 'puppetlabs/git',            '0.5.0'
+mod 'kogitoapp/gitea',           '1.0.4'
+mod 'lwf/remote_file',           '1.1.3'
 
 # Modules from Git
 # Examples: https://github.com/puppetlabs/r10k/blob/master/doc/puppetfile.mkd#examples
