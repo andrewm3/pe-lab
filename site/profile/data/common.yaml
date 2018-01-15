@@ -149,3 +149,6 @@ profile::jenkins::plugin_versions:
   docker-commons: '1.11'
   docker-workflow: '1.14'
   git: '3.7.0'
+  javadoc: '1.4'
+  maven-plugin: '3.0'
+  generic-webhook-trigger: '1.22'
