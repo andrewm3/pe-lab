@@ -1,0 +1,4 @@
+---
+profile::base::linux::firewall_rules:
+  '010 Gitea 3000':
+    dport: '3000'
