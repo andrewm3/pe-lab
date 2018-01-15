@@ -91,3 +91,26 @@ profile::load_balancer::listeners:
     options:
       mode: 'tcp'
       balance: 'source'
+
+# Jenkins
+profile::jenkins::plugin_versions:
+  script-security: '1.40'
+  command-launcher: '1.2'
+  bouncycastle-api: '2.16.2'
+  structs: '1.10'
+  scm-api: '2.2.6'
+  workflow-step-api: '2.14'
+  workflow-api: '2.24'
+  workflow-support: '2.16'
+  durable-task: '1.17'
+  workflow-durable-task-step: '2.17'
+  credentials: '2.1.16'
+  ace-editor: '1.1'
+  jquery-detached: '1.2.1'
+  workflow-scm-step: '2.6'
+  workflow-cps: '2.42'
+  plain-credentials: '1.4'
+  display-url-api: '2.2.0'
+  mailer: '1.20'
+  workflow-basic-steps: '2.6'
+  puppet-enterprise-pipeline: '1.3.1'
