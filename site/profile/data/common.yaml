@@ -66,6 +66,11 @@ profile::puppet::master_of_masters::node_groups:
     rule:
       - 'and'
       - ['~', ['fact', 'aio_agent_version'], '.+']
+  'Staging environment':
+    ensure: present
+    parent: 'Production environment'
+    environment: 'staging'
+    override_environment: true
 
 # Load balancer
 profile::load_balancer::listeners:
