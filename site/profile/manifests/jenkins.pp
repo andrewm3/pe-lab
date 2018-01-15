@@ -9,9 +9,7 @@ class profile::jenkins (
   Hash[String, String] $plugin_versions = {},
 ) {
 
-  class { '::jenkins':
-    default_plugins => [],
-  }
+  class { '::jenkins': }
 
   # Install specified Jenkins plugins
   $plugin_versions.each |$plugin_name, $plugin_version| {

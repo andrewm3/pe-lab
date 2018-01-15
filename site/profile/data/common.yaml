@@ -104,7 +104,6 @@ profile::jenkins::plugin_versions:
   workflow-support: '2.16'
   durable-task: '1.17'
   workflow-durable-task-step: '2.17'
-  credentials: '2.1.16'
   ace-editor: '1.1'
   jquery-detached: '1.2.1'
   workflow-scm-step: '2.6'
