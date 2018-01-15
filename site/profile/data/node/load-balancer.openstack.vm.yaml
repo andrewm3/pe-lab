@@ -1,0 +1,3 @@
+---
+profile::dns::host_aliases:
+  - puppet-master.openstack.vm

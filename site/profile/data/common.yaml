@@ -15,20 +15,6 @@ profile::puppet::master_of_masters::node_groups:
       - 'or'
       - ['and', ['~', ['trusted', 'certname'], '^puppet-compile-\d+\.openstack\.vm$']]
       - ['=', 'name', 'puppet-master-primary.openstack.vm']
-  'PE Infrastructure Agent':
-    ensure: present
-    classes:
-      puppet_enterprise::profile::agent:
-        master_uris: ['puppet-master.openstack.vm']
-        pcp_broker_list: ['puppet-master-primary.openstack.vm:8142']
-        server_list: ['puppet-master-primary.openstack.vm:8140']
-    data:
-      puppet_enterprise::profile::mcollective::agent:
-        activemq_brokers: ['puppet-master-primary.openstack.vm']
-    rule:
-      - 'or'
-      - ['~', ['fact', 'pe_server_version'], '.+']
-      - ['and', ['~', ['trusted', 'certname'], '^load-balancer-\d+\.openstack\.vm$']]
   'PE ActiveMQ Broker':
     ensure: present
     classes:
@@ -45,6 +31,34 @@ profile::puppet::master_of_masters::node_groups:
     rule:
       - 'or'
       - ['and', ['~', ['trusted', 'certname'], '^puppet-master-\w+\.openstack\.vm$']]
+  'PE Infrastructure Agent':
+    ensure: present
+    classes:
+      puppet_enterprise::profile::agent:
+        manage_puppet_conf: true
+        master_uris: ['puppet-master.openstack.vm']
+        pcp_broker_list: ['puppet-master-primary.openstack.vm:8142']
+        server_list: ['puppet-master-primary.openstack.vm:8140']
+    data:
+      puppet_enterprise::profile::mcollective::agent:
+        activemq_brokers: ['puppet-master-primary.openstack.vm']
+    rule:
+      - 'or'
+      - ['~', ['fact', 'pe_server_version'], '.+']
+      - ['and', ['~', ['trusted', 'certname'], '^load-balancer-\d+\.openstack\.vm$']]
+  'PE Agent':
+    ensure: present
+    classes:
+      puppet_enterprise::profile::agent:
+        manage_puppet_conf: true
+        pcp_broker_list: ['puppet-master.openstack.vm:8142']
+        server_list: ['puppet-master.openstack.vm:8140']
+    data:
+      puppet_enterprise::profile::mcollective::agent:
+        activemq_brokers: ['puppet-master.openstack.vm']
+    rule:
+      - 'and'
+      - ['~', ['fact', 'aio_agent_version'], '.+']
 
 # Load balancer
 profile::load_balancer::listeners:
