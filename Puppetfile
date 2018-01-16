@@ -17,6 +17,7 @@ mod 'lwf/remote_file',           '1.1.3'
 mod 'puppet/nginx',              '0.9.0'
 mod 'puppetlabs/apt',            '4.4.1'
 mod 'puppetlabs/ntp',            '7.0.0'
+mod 'saz/locales',               '2.5.0'
 
 # Modules from Git
 # Examples: https://github.com/puppetlabs/r10k/blob/master/doc/puppetfile.mkd#examples

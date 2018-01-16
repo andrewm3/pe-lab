@@ -3,9 +3,12 @@
 # A base profile for Linux nodes.
 #
 class profile::base::linux (
-  Boolean $enable_firewall   = true,
-  Hash    $firewall_rules    = {},
-  Hash    $firewall_defaults = {},
+  Boolean         $enable_firewall   = true,
+  Hash            $firewall_rules    = {},
+  Hash            $firewall_defaults = {},
+  String          $default_locale    = 'en_AU.UTF-8',
+  Array           $locales           = ['en_AU.UTF-8 UTF-8'],
+  Optional[Array] $ntp_servers       = undef,
 ) {
 
   if $enable_firewall {
@@ -29,5 +32,12 @@ class profile::base::linux (
     }
   }
 
-  include ::ntp
+  class { '::ntp':
+    servers => $ntp_servers,
+  }
+
+  class { '::locales':
+    default_locale => $default_locale,
+    locales        => $locales,
+  }
 }
