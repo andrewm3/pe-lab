@@ -164,3 +164,4 @@ profile::jenkins::plugin_versions:
   javadoc: '1.4'
   maven-plugin: '3.0'
   generic-webhook-trigger: '1.22'
+  ssh-agent: '1.15'
