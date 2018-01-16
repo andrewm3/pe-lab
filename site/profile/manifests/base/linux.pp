@@ -9,6 +9,7 @@ class profile::base::linux (
   String          $default_locale    = 'en_AU.UTF-8',
   Array           $locales           = ['en_AU.UTF-8 UTF-8'],
   Optional[Array] $ntp_servers       = undef,
+  String          $timezone          = 'Australia/Sydney',
 ) {
 
   if $enable_firewall {
@@ -39,5 +40,9 @@ class profile::base::linux (
   class { '::locales':
     default_locale => $default_locale,
     locales        => $locales,
+  }
+
+  class { '::timezone':
+    timezone => $timezone,
   }
 }
