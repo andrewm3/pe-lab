@@ -28,4 +28,6 @@ class profile::base::linux (
       ensure => stopped,
     }
   }
+
+  include ::ntp
 }
