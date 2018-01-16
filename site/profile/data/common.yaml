@@ -15,7 +15,7 @@ profile::puppet::master_of_masters::node_groups:
       puppet_enterprise::profile::master:
         check_for_updates: false
         code_manager_auto_configure: true
-        r10k_remote: 'http://gitea.openstack.vm:3000/puppet/pe-lab.git'
+        r10k_remote: 'http://gitea.openstack.vm/puppet/pe-lab.git'
       puppet_enterprise::profile::master::mcollective: {}
       puppet_enterprise::profile::mcollective::peadmin: {}
     rule:
