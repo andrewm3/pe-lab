@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.16">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.DisableConcurrentBuildsJobProperty/>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers>
+        <org.jenkinsci.plugins.gwt.GenericTrigger plugin="generic-webhook-trigger@1.22">
+          <spec></spec>
+          <genericVariables>
+            <org.jenkinsci.plugins.gwt.GenericVariable>
+              <expressionType>JSONPath</expressionType>
+              <key>ref</key>
+              <value>$.ref</value>
+              <regexpFilter></regexpFilter>
+            </org.jenkinsci.plugins.gwt.GenericVariable>
+          </genericVariables>
+          <regexpFilterText>$repo,$ref</regexpFilterText>
+          <regexpFilterExpression>^pe-lab,refs/heads/staging$</regexpFilterExpression>
+          <genericRequestVariables>
+            <org.jenkinsci.plugins.gwt.GenericRequestVariable>
+              <key>repo</key>
+              <regexpFilter></regexpFilter>
+            </org.jenkinsci.plugins.gwt.GenericRequestVariable>
+          </genericRequestVariables>
+        </org.jenkinsci.plugins.gwt.GenericTrigger>
+      </triggers>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.42">
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@3.7.0">
+      <configVersion>2</configVersion>
+      <userRemoteConfigs>
+        <hudson.plugins.git.UserRemoteConfig>
+          <url>http://gitea.openstack.vm/puppet/pe-lab.git</url>
+        </hudson.plugins.git.UserRemoteConfig>
+      </userRemoteConfigs>
+      <branches>
+        <hudson.plugins.git.BranchSpec>
+          <name>*/staging</name>
+        </hudson.plugins.git.BranchSpec>
+      </branches>
+      <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+      <submoduleCfg class="list"/>
+      <extensions>
+        <hudson.plugins.git.extensions.impl.WipeWorkspace/>
+      </extensions>
+    </scm>
+    <scriptPath>Jenkinsfile</scriptPath>
+    <lightweight>false</lightweight>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

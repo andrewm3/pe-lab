@@ -165,3 +165,5 @@ profile::jenkins::plugin_versions:
   maven-plugin: '3.0'
   generic-webhook-trigger: '1.22'
   ssh-agent: '1.15'
+profile::jenkins::jobs:
+  puppet-pipeline-job: 'profile/jenkins/puppet-pipeline.job.xml'
