@@ -119,3 +119,17 @@ module "windows-agent" {
   master_ip = "${local.primary_master_ip}"
   master_hostname = "${local.primary_master_hostname}"
 }
+
+module "yumrepo" {
+  source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
+
+  name = "yumrepo"
+  key_pair = "${openstack_compute_keypair_v2.terraform.name}"
+  network_uuid = "${openstack_networking_network_v2.terraform.id}"
+  flavor = "g1.medium"
+  pool = "${var.pool}"
+  pp_role = "yumrepo"
+  node_type = "posix-agent"
+  master_ip = "${local.primary_master_ip}"
+  master_hostname = "${local.primary_master_hostname}"
+}
