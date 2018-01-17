@@ -1,10 +1,7 @@
 # profile::base::windows
 #
-# A description of what this class does
+# Includes all the base configuration for Windows nodes.
 #
-# @summary A short summary of the purpose of this class
-#
-# @example
-#   include profile::base::windows
 class profile::base::windows {
+  include chocolatey
 }

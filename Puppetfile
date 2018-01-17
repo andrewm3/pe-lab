@@ -20,6 +20,9 @@ mod 'puppetlabs/ntp',            '7.0.0'
 mod 'saz/locales',               '2.5.0'
 mod 'saz/timezone',              '4.1.1'
 mod 'stm/debconf',               '2.0.0'
+mod 'puppetlabs/powershell',     '2.1.3'
+mod 'puppetlabs/registry',       '1.1.4'
+mod 'puppetlabs/chocolatey',     '3.0.0'
 
 # Modules from Git
 # Examples: https://github.com/puppetlabs/r10k/blob/master/doc/puppetfile.mkd#examples
