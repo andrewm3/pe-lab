@@ -1,11 +1,12 @@
 locals {
-  primary_master_ip = "${module.puppet-master-primary.private_ip}"
+  primary_master_ip       = "${module.puppet-master-primary.private_ip}"
+  primary_master_hostname = "puppet-master-primary"
 }
 
 module "puppet-master-primary" {
   source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
 
-  name = "puppet-master-primary"
+  name = "${local.primary_master_hostname}"
   key_pair = "${openstack_compute_keypair_v2.terraform.name}"
   network_uuid = "${openstack_networking_network_v2.terraform.id}"
   flavor = "m1.medium"
@@ -43,7 +44,7 @@ module "puppet-compile-1" {
   pp_role = "puppet::compile_master"
   node_type = "compile-master"
   master_ip = "${local.primary_master_ip}"
-  master_hostname = "puppet-master-primary"
+  master_hostname = "${local.primary_master_hostname}"
 }
 
 module "puppet-compile-2" {
@@ -57,7 +58,7 @@ module "puppet-compile-2" {
   pp_role = "puppet::compile_master"
   node_type = "compile-master"
   master_ip = "${local.primary_master_ip}"
-  master_hostname = "puppet-master-primary"
+  master_hostname = "${local.primary_master_hostname}"
 }
 
 module "load-balancer" {
@@ -71,7 +72,7 @@ module "load-balancer" {
   pp_role = "load_balancer"
   node_type = "posix-agent"
   master_ip = "${local.primary_master_ip}"
-  master_hostname = "puppet-master-primary"
+  master_hostname = "${local.primary_master_hostname}"
 }
 
 module "gitea" {
@@ -87,7 +88,7 @@ module "gitea" {
   pp_role = "gitea"
   node_type = "posix-agent"
   master_ip = "${local.primary_master_ip}"
-  master_hostname = "puppet-master-primary"
+  master_hostname = "${local.primary_master_hostname}"
 }
 
 module "jenkins" {
@@ -101,5 +102,20 @@ module "jenkins" {
   pp_role = "jenkins"
   node_type = "posix-agent"
   master_ip = "${local.primary_master_ip}"
-  master_hostname = "puppet-master-primary"
+  master_hostname = "${local.primary_master_hostname}"
+}
+
+module "windows-agent" {
+  source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
+
+  name = "windows-agent"
+  key_pair = "${openstack_compute_keypair_v2.terraform.name}"
+  network_uuid = "${openstack_networking_network_v2.terraform.id}"
+  image = "windows_2012_r2_std_eval_x86_64"
+  flavor = "d1.medium"
+  pool = "${var.pool}"
+  pp_role = "windows_agent"
+  node_type = "windows-agent"
+  master_ip = "${local.primary_master_ip}"
+  master_hostname = "${local.primary_master_hostname}"
 }
