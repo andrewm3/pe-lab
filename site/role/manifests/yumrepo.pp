@@ -4,5 +4,6 @@
 #
 class role::yumrepo {
   require profile::base
+  include profile::apache
   include profile::yumrepo
 }

@@ -23,6 +23,8 @@ mod 'stm/debconf',               '2.0.0'
 mod 'puppetlabs/powershell',     '2.1.3'
 mod 'puppetlabs/registry',       '1.1.4'
 mod 'puppetlabs/chocolatey',     '3.0.0'
+mod 'puppetlabs/apache',         '2.3.0'
+mod 'palli/createrepo',          '2.1.0'
 
 # Modules from Git
 # Examples: https://github.com/puppetlabs/r10k/blob/master/doc/puppetfile.mkd#examples
