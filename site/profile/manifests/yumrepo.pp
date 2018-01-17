@@ -28,6 +28,8 @@ class profile::yumrepo (
     }
   }
 
+  include ::apache::mod::autoindex
+
   apache::vhost { $facts['fqdn']:
     port    => 80,
     docroot => '/var/www/html/yumrepo',
