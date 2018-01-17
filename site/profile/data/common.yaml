@@ -168,3 +168,7 @@ profile::jenkins::plugin_versions:
   ssh-agent: '1.15'
 profile::jenkins::job_files:
   puppet-pipeline: 'profile/jenkins/puppet-pipeline-job.xml'
+
+# Yum repos
+profile::yumrepo::yumrepos:
+  splunk: {}
