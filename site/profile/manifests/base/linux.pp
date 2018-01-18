@@ -46,8 +46,17 @@ class profile::base::linux (
     timezone => $timezone,
   }
 
-  # Only manage SELinux on RedHat systems
-  if $facts['os']['family'] == 'RedHat' {
-    include ::selinux
+  case $facts['os']['family'] {
+    'RedHat': {
+      shellvar { 'HOSTNAME':
+        ensure => present,
+        target => '/etc/sysconfig/network',
+        value  => $trusted['certname'],
+      }
+
+      include ::selinux
+    }
+
+    default: {}
   }
 }
