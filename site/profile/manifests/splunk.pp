@@ -7,7 +7,7 @@
 # @example
 #   include profile::splunk
 class profile::splunk (
-  String $yumrepo_baseurl = 'http://yumrepo.openstack.vm',
+  String $yumrepo_baseurl = 'http://yumrepo.openstack.vm/splunk',
 ) {
 
   yumrepo { 'splunk':
