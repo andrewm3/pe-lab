@@ -19,6 +19,10 @@ class profile::splunk (
   }
 
   class { '::splunk':
+    service            => {
+      enable => true,
+      ensure => running,
+    },
     httpport           => 8000,
     kvstoreport        => 8191,
     inputport          => 9997,
