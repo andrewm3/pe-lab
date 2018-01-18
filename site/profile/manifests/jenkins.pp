@@ -29,9 +29,14 @@ class profile::jenkins (
     }
   }
 
+  nginx::resource::server { $facts['fqdn']:
+    listen_port => 80,
+    proxy       => 'http://localhost:8080',
+  }
+
   if $enable_firewall {
-    firewall {'100 Jenkins 8080':
-      dport  => '8080',
+    firewall {'100 Jenkins HTTP 80':
+      dport  => '80',
       proto  => 'tcp',
       action => 'accept',
     }

@@ -4,5 +4,6 @@
 #
 class role::jenkins {
   require profile::base
+  include profile::nginx
   include profile::jenkins
 }

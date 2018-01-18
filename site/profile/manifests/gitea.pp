@@ -24,8 +24,6 @@ class profile::gitea (
     }
   }
 
-  include ::nginx
-
   nginx::resource::server { $server_domain:
     listen_port => 80,
     proxy       => "${server_protocol}://${server_domain}:${server_http_port}"
