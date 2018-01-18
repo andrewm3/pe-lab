@@ -9,11 +9,9 @@ class profile::load_balancer (
 
   include ::haproxy
 
-  # Set SELinux to permissive mode on RedHat nodes as it stops HAProxy from running.
+  # Allow HAProxy to work with SELinux enabled
   if $facts['os']['family'] == 'RedHat' {
-    class { '::selinux':
-      mode => 'permissive',
-    }
+    selinux::boolean { 'haproxy_connect_any': }
   }
 
   if $listeners {

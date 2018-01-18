@@ -34,6 +34,11 @@ class profile::jenkins (
     proxy       => 'http://localhost:8080',
   }
 
+  # Required SELinux setting for nginx reverse proxy to Jenkins
+  if $facts['os']['family'] == 'RedHat' {
+    selinux::boolean { 'httpd_can_network_connect': }
+  }
+
   if $enable_firewall {
     firewall {'100 Jenkins HTTP 80':
       dport  => '80',

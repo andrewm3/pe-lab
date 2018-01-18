@@ -45,4 +45,9 @@ class profile::base::linux (
   class { '::timezone':
     timezone => $timezone,
   }
+
+  # Only manage SELinux on RedHat systems
+  if $facts['os']['family'] == 'RedHat' {
+    include ::selinux
+  }
 }
