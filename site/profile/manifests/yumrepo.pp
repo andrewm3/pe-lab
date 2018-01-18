@@ -27,6 +27,13 @@ class profile::yumrepo (
       repo_cache_dir => "${repo_cache_dir}/${yumrepo_name}",
       *              => $yumrepo_attributes,
     }
+
+    file { "${repository_dir}/${yumrepo_name}/RPMS":
+      ensure => directory,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755',
+    }
   }
 
   include ::apache::mod::autoindex
