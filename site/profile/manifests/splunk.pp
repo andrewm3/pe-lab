@@ -7,7 +7,8 @@
 # @example
 #   include profile::splunk
 class profile::splunk (
-  String $yumrepo_baseurl = 'http://yumrepo.openstack.vm/splunk',
+  Boolean $enable_firewall = true,
+  String  $yumrepo_baseurl = 'http://yumrepo.openstack.vm/splunk',
 ) {
 
   yumrepo { 'splunk':
@@ -25,5 +26,13 @@ class profile::splunk (
     sslcertpath        => 'server.pem',
     sslrootcapath      => 'cacert.pem',
     require            => Yumrepo['splunk'],
+  }
+
+  if $enable_firewall {
+    firewall { '100 Splunk HTTPS 8000':
+      dport  => '8000',
+      proto  => 'tcp',
+      action => 'accept',
+    }
   }
 }
