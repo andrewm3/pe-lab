@@ -27,6 +27,7 @@ mod 'puppetlabs/apache',                     '2.3.0'
 mod 'palli/createrepo',                      '2.1.0'
 mod 'herculesteam/augeasproviders_core',     '2.1.4'
 mod 'herculesteam/augeasproviders_shellvar', '2.2.2'
+mod 'splunk/splunkenterprise',               '1.0.1'
 
 # Modules from Git
 # Examples: https://github.com/puppetlabs/r10k/blob/master/doc/puppetfile.mkd#examples
