@@ -133,3 +133,17 @@ module "yumrepo" {
   master_ip = "${local.primary_master_ip}"
   master_hostname = "${local.primary_master_hostname}"
 }
+
+module "splunk" {
+  source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
+
+  name = "splunk"
+  key_pair = "${openstack_compute_keypair_v2.terraform.name}"
+  network_uuid = "${openstack_networking_network_v2.terraform.id}"
+  flavor = "g1.xlarge"
+  pool = "${var.pool}"
+  pp_role = "splunk"
+  node_type = "posix-agent"
+  master_ip = "${local.primary_master_ip}"
+  master_hostname = "${local.primary_master_hostname}"
+}
