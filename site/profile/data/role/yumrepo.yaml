@@ -1,4 +1,0 @@
----
-profile::base::linux::firewall_rules:
-  '010 HTTP 80':
-    dport: '80'

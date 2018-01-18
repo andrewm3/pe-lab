@@ -3,8 +3,40 @@
 # Manage the PE MoM-specific configuration.
 #
 class profile::puppet::master_of_masters (
-  Hash             $node_groups       = {},
+  Boolean $enable_firewall = true,
+  Hash    $node_groups     = {},
 ) {
+
+  if $enable_firewall {
+    Firewall {
+      proto  => 'tcp',
+      action => 'accept',
+    }
+
+    firewall { '010 Puppet Code Manager 8170':
+      dport => '8170',
+    }
+
+    firewall { '010 PuppetDB 8081':
+      dport => '8081',
+    }
+
+    firewall { '010 Puppet Console 443':
+      dport => '443',
+    }
+
+    firewall { '010 Puppet Classifier 4433':
+      dport => '4433',
+    }
+
+    firewall { '010 PE Orchestrator 8143':
+      dport => '8143',
+    }
+
+    firewall { '010 PE Postgres 5432':
+      dport => '5432',
+    }
+  }
 
   # Configure node_manager module
   file { '/etc/puppetlabs/puppet/node_manager.yaml':

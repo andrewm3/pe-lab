@@ -6,6 +6,7 @@
 #   include profile::jenkins
 #
 class profile::jenkins (
+  Boolean              $enable_firewall = true,
   Hash[String, String] $plugin_versions = {},
   Hash[String, String] $job_files       = {},
 ) {
@@ -25,6 +26,14 @@ class profile::jenkins (
   $job_files.each |$job_name, $job_file| {
     jenkins::job { $job_name:
       config => file($job_file),
+    }
+  }
+
+  if $enable_firewall {
+    firewall {'100 Jenkins 8080':
+      dport  => '8080',
+      proto  => 'tcp',
+      action => 'accept',
     }
   }
 }

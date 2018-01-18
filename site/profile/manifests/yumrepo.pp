@@ -8,9 +8,10 @@
 #   include profile::yumrepo
 #
 class profile::yumrepo (
-  String             $repository_dir = '/var/www/html/yumrepo',
-  String             $repo_cache_dir = '/var/cache/yumrepo',
-  Hash[String, Hash] $yumrepos       = {},
+  Boolean            $enable_firewall = true,
+  String             $repository_dir  = '/var/www/html/yumrepo',
+  String             $repo_cache_dir  = '/var/cache/yumrepo',
+  Hash[String, Hash] $yumrepos        = {},
 ) {
 
   file { [$repository_dir, $repo_cache_dir]:
@@ -33,5 +34,13 @@ class profile::yumrepo (
   apache::vhost { $facts['fqdn']:
     port    => 80,
     docroot => '/var/www/html/yumrepo',
+  }
+
+  if $enable_firewall {
+    firewall { '100 yumrepo HTTP 80':
+      dport  => '80',
+      proto  => 'tcp',
+      action => 'accept',
+    }
   }
 }

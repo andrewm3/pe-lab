@@ -1,10 +1,16 @@
 ---
+anchors:
+  - &enable_firewall true
+
 # Base settings
+profile::base::linux::enable_firewall: *enable_firewall
 profile::base::linux::firewall_defaults:
   proto: 'tcp'
   action: 'accept'
 
 # Puppet master settings
+profile::puppet::master::enable_firewall: *enable_firewall
+profile::puppet::master_of_masters::enable_firewall: *enable_firewall
 profile::puppet::master_of_masters::node_groups:
   'PE Master':
     ensure: present
@@ -74,6 +80,7 @@ profile::puppet::master_of_masters::node_groups:
     override_environment: true
 
 # Load balancer
+profile::load_balancer::enable_firewall: *enable_firewall
 profile::load_balancer::listeners:
   stats:
     collect_exported: false
@@ -106,6 +113,7 @@ profile::load_balancer::listeners:
       balance: 'source'
 
 # Jenkins
+profile::jenkins::enable_firewall: *enable_firewall
 profile::jenkins::plugin_versions:
   pipeline-stage-tags-metadata: '1.2.6'
   script-security: '1.40'
@@ -169,6 +177,10 @@ profile::jenkins::plugin_versions:
 profile::jenkins::job_files:
   puppet-pipeline: 'profile/jenkins/puppet-pipeline-job.xml'
 
+# Gitea
+profile::gitea::enable_firewall: *enable_firewall
+
 # Yum repos
+profile::yumrepo::enable_firewall: *enable_firewall
 profile::yumrepo::yumrepos:
   splunk: {}
