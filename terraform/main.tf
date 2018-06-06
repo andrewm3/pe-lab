@@ -1,12 +1,12 @@
 locals {
-  primary_master_ip       = "${module.puppet-master-primary.private_ip}"
-  primary_master_hostname = "puppet-master-primary"
+  puppet_master_ip       = "${module.puppet-master-primary.private_ip}"
+  puppet_master_hostname = "puppet-master"
 }
 
-module "puppet-master-primary" {
+module "puppet-master" {
   source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
 
-  name = "${local.primary_master_hostname}"
+  name = "${local.puppet_master_hostname}"
   key_pair = "${openstack_compute_keypair_v2.terraform.name}"
   network_uuid = "${openstack_networking_network_v2.terraform.id}"
   flavor = "m1.medium"
@@ -33,117 +33,18 @@ EOF
   ]
 }
 
-module "puppet-compile-1" {
+module "gitlab" {
   source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
 
-  name = "puppet-compile-1"
-  key_pair = "${openstack_compute_keypair_v2.terraform.name}"
-  network_uuid = "${openstack_networking_network_v2.terraform.id}"
-  flavor = "m1.medium"
-  pool = "${var.pool}"
-  pp_role = "puppet::compile_master"
-  node_type = "compile-master"
-  master_ip = "${local.primary_master_ip}"
-  master_hostname = "${local.primary_master_hostname}"
-}
-
-module "puppet-compile-2" {
-  source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
-
-  name = "puppet-compile-2"
-  key_pair = "${openstack_compute_keypair_v2.terraform.name}"
-  network_uuid = "${openstack_networking_network_v2.terraform.id}"
-  flavor = "m1.medium"
-  pool = "${var.pool}"
-  pp_role = "puppet::compile_master"
-  node_type = "compile-master"
-  master_ip = "${local.primary_master_ip}"
-  master_hostname = "${local.primary_master_hostname}"
-}
-
-module "load-balancer" {
-  source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
-
-  name = "load-balancer"
-  key_pair = "${openstack_compute_keypair_v2.terraform.name}"
-  network_uuid = "${openstack_networking_network_v2.terraform.id}"
-  flavor = "g1.small"
-  pool = "${var.pool}"
-  pp_role = "load_balancer"
-  node_type = "posix-agent"
-  master_ip = "${local.primary_master_ip}"
-  master_hostname = "${local.primary_master_hostname}"
-}
-
-module "gitea" {
-  source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
-
-  name = "gitea"
+  name = "gitlab"
   key_pair = "${openstack_compute_keypair_v2.terraform.name}"
   network_uuid = "${openstack_networking_network_v2.terraform.id}"
   image = "ubuntu_16.04_x86_64"
-  flavor = "g1.small"
+  flavor = "m1.medium"
   ssh_user_name = "ubuntu"
   pool = "${var.pool}"
-  pp_role = "gitea"
+  pp_role = "gitlab"
   node_type = "posix-agent"
-  master_ip = "${local.primary_master_ip}"
-  master_hostname = "${local.primary_master_hostname}"
-}
-
-module "jenkins" {
-  source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
-
-  name = "jenkins"
-  key_pair = "${openstack_compute_keypair_v2.terraform.name}"
-  network_uuid = "${openstack_networking_network_v2.terraform.id}"
-  flavor = "g1.medium"
-  pool = "${var.pool}"
-  pp_role = "jenkins"
-  node_type = "posix-agent"
-  master_ip = "${local.primary_master_ip}"
-  master_hostname = "${local.primary_master_hostname}"
-}
-
-module "windows-agent" {
-  source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
-
-  name = "windows-agent"
-  key_pair = "${openstack_compute_keypair_v2.terraform.name}"
-  network_uuid = "${openstack_networking_network_v2.terraform.id}"
-  image = "windows_2012_r2_std_eval_x86_64"
-  flavor = "d1.medium"
-  pool = "${var.pool}"
-  pp_role = "windows_agent"
-  node_type = "windows-agent"
-  master_ip = "${local.primary_master_ip}"
-  master_hostname = "${local.primary_master_hostname}"
-}
-
-module "yumrepo" {
-  source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
-
-  name = "yumrepo"
-  key_pair = "${openstack_compute_keypair_v2.terraform.name}"
-  network_uuid = "${openstack_networking_network_v2.terraform.id}"
-  flavor = "d1.small"
-  pool = "${var.pool}"
-  pp_role = "yumrepo"
-  node_type = "posix-agent"
-  master_ip = "${local.primary_master_ip}"
-  master_hostname = "${local.primary_master_hostname}"
-}
-
-module "splunk" {
-  source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
-
-  name = "splunk"
-  key_pair = "${openstack_compute_keypair_v2.terraform.name}"
-  network_uuid = "${openstack_networking_network_v2.terraform.id}"
-  flavor = "g1.xlarge"
-  pool = "${var.pool}"
-  pp_role = "splunk"
-  node_type = "posix-agent"
-  master_ip = "${local.primary_master_ip}"
-  master_hostname = "${local.primary_master_hostname}"
+  master_ip = "${local.puppet_master_ip}"
+  master_hostname = "${local.puppet_master_hostname}"
 }
