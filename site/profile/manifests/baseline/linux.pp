@@ -8,6 +8,8 @@ class profile::baseline::linux (
   Array           $locales           = ['en_AU.UTF-8 UTF-8'],
   Optional[Array] $ntp_servers       = undef,
   String          $timezone          = 'Australia/Sydney',
+  String          $selinux_mode      = 'enforcing',
+  String          $selinux_type      = 'targeted',
 ) {
 
   if $enable_firewall {
@@ -52,7 +54,10 @@ class profile::baseline::linux (
         value  => $trusted['certname'],
       }
 
-      #include ::selinux
+      class { '::selinux':
+        mode => $selinux_mode,
+        type => $selinux_type,
+      }
     }
 
     default: {}

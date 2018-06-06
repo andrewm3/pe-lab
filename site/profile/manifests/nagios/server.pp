@@ -10,11 +10,6 @@ class profile::nagios::server {
   require apache::mod::ssl
   require apache::mod::php
 
-  class { 'selinux':
-    mode => 'permissive',
-    type => 'targeted',
-  }
-
   package { ['nagios', 'nagios-plugins', 'nagios-plugins-all']:
     ensure => present,
   }

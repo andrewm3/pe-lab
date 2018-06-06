@@ -1,0 +1,2 @@
+---
+profile::baseline::linux::selinux_mode: permissive
