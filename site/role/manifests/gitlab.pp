@@ -9,4 +9,5 @@
 #
 class role::gitlab {
   require profile::base
+  include profile::gitlab
 }
