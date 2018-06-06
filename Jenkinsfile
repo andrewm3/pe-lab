@@ -15,15 +15,19 @@ def promote(Map parameters = [:]) {
 }
 
 node {
-  git branch: 'staging', credentialsId: 'puppet-control-repo', url: 'git@gitea.openstack.vm:puppet/pe-lab.git'
+  git branch: 'staging', credentialsId: 'puppet-control-repo', url: 'git@gitlab.openstack.vm:root/control-repo.git'
 
-  /*
-  stage 'Lint and unit tests'
-  withEnv(['PATH=/usr/local/bin:$PATH']) {
-    sh 'bundle install'
-    sh 'bundle exec onceover run spec'
+  stage('Lint and unit tests') {
+    withEnv(['PATH+LOCAL=/usr/local/bin']) {
+      sh 'ruby -v'
+      sh 'which ruby'
+      sh 'gem install bundler --no-ri --no-rdoc'
+      sh 'bundle install --path vendor/bundle'
+      sh 'bundle exec rake syntax'
+      sh 'bundle exec rake lint'
+      sh 'bundle exec onceover run spec'
+    }
   }
-  */
 
   // Set the Jenkins credentials that hold our Puppet Enterprise RBAC token
   puppet.credentials 'pe-access-token'

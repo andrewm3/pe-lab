@@ -29,6 +29,11 @@ class profile::jenkins (
     }
   }
 
+  # Install required build packages
+  package { ['ruby', 'ruby-devel', 'rubygems', 'gcc', 'make']:
+    ensure => present,
+  }
+
   nginx::resource::server { $facts['fqdn']:
     listen_port => 80,
     proxy       => 'http://localhost:8080',

@@ -33,7 +33,8 @@
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>http://gitea.openstack.vm/puppet/pe-lab.git</url>
+          <url>git@gitlab.openstack.vm:root/control-repo.git</url>
+          <credentialsId>puppet-control-repo</credentialsId>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
