@@ -179,6 +179,9 @@ profile::jenkins::job_files:
 # Gitea
 profile::gitea::enable_firewall: *enable_firewall
 
+# Gitlab
+profile::gitlab::enable_firewall: *enable_firewall
+
 # Yum repos
 profile::yumrepo::enable_firewall: *enable_firewall
 profile::yumrepo::yumrepos:

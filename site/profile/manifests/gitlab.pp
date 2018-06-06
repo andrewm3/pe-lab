@@ -6,10 +6,11 @@
 #   }
 #
 class profile::gitlab (
-  String $server_name      = $facts['fqdn'],
-  String $ca_file_source   = 'file:///etc/puppetlabs/puppet/ssl/certs/ca.pem',
-  String $key_file_source  = "file:///etc/puppetlabs/puppet/ssl/private_keys/${trusted['certname']}.pem",
-  String $cert_file_source = "file:///etc/puppetlabs/puppet/ssl/certs/${trusted['certname']}.pem",
+  Boolean $enable_firewall  = true,
+  String  $server_name      = $facts['fqdn'],
+  String  $ca_file_source   = 'file:///etc/puppetlabs/puppet/ssl/certs/ca.pem',
+  String  $key_file_source  = "file:///etc/puppetlabs/puppet/ssl/private_keys/${trusted['certname']}.pem",
+  String  $cert_file_source = "file:///etc/puppetlabs/puppet/ssl/certs/${trusted['certname']}.pem",
 ) {
 
   $ssl_certificate     = "/etc/gitlab/ssl/${server_name}.crt"
@@ -46,5 +47,20 @@ class profile::gitlab (
     ensure => file,
     source => $ca_file_source,
     before => Class['gitlab::service'],
+  }
+
+
+  if $enable_firewall {
+    firewall { '100 Gitlab HTTP 80':
+      dport  => '80',
+      proto  => 'tcp',
+      action => 'accept',
+    }
+
+    firewall { '100 Gitlab HTTPS 443':
+      dport  => '443',
+      proto  => 'tcp',
+      action => 'accept',
+    }
   }
 }
