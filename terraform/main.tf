@@ -1,12 +1,12 @@
 locals {
-  puppet_master_ip       = "${module.puppet-master-primary.private_ip}"
+  puppet_master_ip       = "${module.puppet-master.private_ip}"
   puppet_master_hostname = "puppet-master"
 }
 
 module "puppet-master" {
   source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
 
-  name = "${local.puppet_master_hostname}"
+  name = "puppet-master-primary"
   key_pair = "${openstack_compute_keypair_v2.terraform.name}"
   network_uuid = "${openstack_networking_network_v2.terraform.id}"
   flavor = "m1.medium"
