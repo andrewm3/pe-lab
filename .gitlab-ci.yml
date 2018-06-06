@@ -1,0 +1,13 @@
+before_script:
+  - ruby -v
+  - which ruby
+  - gem install bundler --no-ri --no-rdoc
+  - bundle install --jobs $(nproc)  "${FLAGS[@]}"
+
+syntax:
+  script:
+    - bundle exec rake syntax
+
+lint:
+  script:
+    - bundle exec rake lint
