@@ -16,16 +16,18 @@
 File { backup => false }
 
 Firewall {
-  require => Class['profile::fw::pre'],
-  before  => Class['profile::fw::post'],
+  require => Class['profile::baseline::linux::firewall::pre'],
+  before  => Class['profile::baseline::linux::firewall::post'],
 }
 
 ## Node Definitions ##
 
 node default {
   if $trusted['extensions']['pp_role'] {
-    include "role::${trusted['extensions']['pp_role']}"
+    $role = $trusted['extensions']['pp_role']
+    include "role::${role}"
   } else {
+    include profile::baseline
     warning('No role was found for this node. Have you set pp_role in the CSR?')
   }
 }

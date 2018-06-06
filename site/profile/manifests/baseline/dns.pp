@@ -1,8 +1,6 @@
-# profile::dns
-#
 # Configure 'DNS' - with the export host resource and collect method
 #
-class profile::dns (
+class profile::baseline::dns (
   Array[String] $host_aliases = [],
 ) {
 

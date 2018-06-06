@@ -3,8 +3,8 @@ anchors:
   - &enable_firewall true
 
 # Base settings
-profile::base::linux::enable_firewall: *enable_firewall
-profile::base::linux::firewall_defaults:
+profile::baseline::linux::enable_firewall: *enable_firewall
+profile::baseline::linux::firewall_defaults:
   proto: 'tcp'
   action: 'accept'
 

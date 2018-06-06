@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'role::windows_agent' do
+describe 'profile::baseline::linux::firewall::pre' do
   on_supported_os(facterversion: '2.4').each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }

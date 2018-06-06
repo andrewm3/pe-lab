@@ -1,8 +1,7 @@
-# profile::fw::post
-#
 # Set any default firewall rules to apply last.
 #
-class profile::fw::post {
+class profile::baseline::linux::firewall::post {
+
   firewall { '999 drop all':
     proto  => 'all',
     action => 'drop',

@@ -1,8 +1,6 @@
-# profile::base::linux
+# Baseline configuration for Linux operating systems.
 #
-# A base profile for Linux nodes.
-#
-class profile::base::linux (
+class profile::baseline::linux (
   Boolean         $enable_firewall   = true,
   Hash            $firewall_rules    = {},
   Hash            $firewall_defaults = {},
@@ -14,8 +12,8 @@ class profile::base::linux (
 
   if $enable_firewall {
     include ::firewall
-    include profile::fw::pre
-    include profile::fw::post
+    include profile::baseline::linux::firewall::pre
+    include profile::baseline::linux::firewall::post
 
     $firewall_rules.each |$rule_name, $rule_attributes| {
       firewall {

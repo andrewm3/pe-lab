@@ -1,8 +1,7 @@
-# profile::fw::pre
-#
 # Set any default firewall rules to apply first.
 #
-class profile::fw::pre {
+class profile::baseline::linux::firewall::pre {
+
   Firewall {
     require => undef,
   }
