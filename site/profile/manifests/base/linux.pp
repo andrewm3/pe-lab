@@ -54,7 +54,7 @@ class profile::base::linux (
         value  => $trusted['certname'],
       }
 
-      include ::selinux
+      #include ::selinux
     }
 
     default: {}
