@@ -50,6 +50,20 @@ module "gitlab" {
   master_hostname = "${local.puppet_master_hostname}"
 }
 
+module "jenkins" {
+  source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
+
+  name = "jenkins"
+  key_pair = "${openstack_compute_keypair_v2.terraform.name}"
+  network_uuid = "${openstack_networking_network_v2.terraform.id}"
+  flavor = "g1.medium"
+  pool = "${var.pool}"
+  pp_role = "jenkins"
+  node_type = "posix-agent"
+  master_ip = "${local.puppet_master_ip}"
+  master_hostname = "${local.puppet_master_hostname}"
+}
+
 module "nagios" {
   source = "github.com/andrewm3/terraform-openstack-puppet-enterprise"
 
