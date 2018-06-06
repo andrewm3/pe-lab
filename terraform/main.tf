@@ -28,6 +28,7 @@ module "puppet-master" {
 }
 EOF
   custom_provisioner = [
+    "cat /etc/puppetlabs/puppet/ssl/certs/ca.pem >> /opt/puppetlabs/puppet/ssl/cert.pem",
     "echo puppetlabs | sudo /opt/puppetlabs/bin/puppet-access login --lifetime=0 --username admin",
     "sudo /opt/puppetlabs/bin/puppet-code deploy --all --wait",
   ]
