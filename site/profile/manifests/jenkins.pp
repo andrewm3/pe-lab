@@ -6,9 +6,9 @@
 #   include profile::jenkins
 #
 class profile::jenkins (
-  Boolean              $enable_firewall = true,
-  Hash[String, String] $plugin_versions = {},
-  Hash[String, String] $job_files       = {},
+  Boolean              $firewall_enabled = true,
+  Hash[String, String] $plugin_versions  = {},
+  Hash[String, String] $job_files        = {},
 ) {
 
   include ::git
@@ -39,7 +39,7 @@ class profile::jenkins (
     selinux::boolean { 'httpd_can_network_connect': }
   }
 
-  if $enable_firewall {
+  if $firewall_enabled {
     firewall {'100 Jenkins HTTP 80':
       dport  => '80',
       proto  => 'tcp',

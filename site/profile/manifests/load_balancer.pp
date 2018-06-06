@@ -3,8 +3,8 @@
 # Configures a HAProxy load balancer.
 #
 class profile::load_balancer (
-  Optional[Hash] $listeners       = undef,
-  Boolean        $enable_firewall = true,
+  Optional[Hash] $listeners        = undef,
+  Boolean        $firewall_enabled = true,
 ) {
 
   include ::haproxy
@@ -23,7 +23,7 @@ class profile::load_balancer (
         options          => $listener_values['options'],
       }
 
-      if $enable_firewall {
+      if $firewall_enabled {
         firewall { "100 ${listener}":
           dport  => [$listener_values['ports']],
           proto  => 'tcp',

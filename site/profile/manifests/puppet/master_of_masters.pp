@@ -3,11 +3,11 @@
 # Manage the PE MoM-specific configuration.
 #
 class profile::puppet::master_of_masters (
-  Boolean $enable_firewall = true,
+  Boolean $firewall_enabled = true,
   Hash    $node_groups     = {},
 ) {
 
-  if $enable_firewall {
+  if $firewall_enabled {
     Firewall {
       proto  => 'tcp',
       action => 'accept',

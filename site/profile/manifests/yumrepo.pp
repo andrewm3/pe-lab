@@ -8,7 +8,7 @@
 #   include profile::yumrepo
 #
 class profile::yumrepo (
-  Boolean            $enable_firewall = true,
+  Boolean            $firewall_enabled = true,
   String             $repository_dir  = '/var/www/html/yumrepo',
   String             $repo_cache_dir  = '/var/cache/yumrepo',
   Hash[String, Hash] $yumrepos        = {},
@@ -43,7 +43,7 @@ class profile::yumrepo (
     docroot => '/var/www/html/yumrepo',
   }
 
-  if $enable_firewall {
+  if $firewall_enabled {
     firewall { '100 yumrepo HTTP 80':
       dport  => '80',
       proto  => 'tcp',

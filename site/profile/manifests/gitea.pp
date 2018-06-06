@@ -6,7 +6,7 @@
 #   include profile::gitea
 #
 class profile::gitea (
-  Boolean $enable_firewall  = true,
+  Boolean $firewall_enabled = true,
   String  $server_protocol  = 'http',
   String  $server_domain    = $facts['fqdn'],
   Integer $server_http_port = 3000,
@@ -29,7 +29,7 @@ class profile::gitea (
     proxy       => "${server_protocol}://${server_domain}:${server_http_port}"
   }
 
-  if $enable_firewall {
+  if $firewall_enabled {
     firewall { '100 Gitea HTTP 80':
       dport  => '80',
       proto  => 'tcp',

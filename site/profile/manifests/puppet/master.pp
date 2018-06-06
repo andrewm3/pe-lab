@@ -6,10 +6,10 @@
 #   include profile::puppet::master
 #
 class profile::puppet::master (
-  Boolean $enable_firewall = true,
+  Boolean $firewall_enabled = true,
 ) {
 
-  if $enable_firewall {
+  if $firewall_enabled {
     Firewall {
       proto  => 'tcp',
       action => 'accept',

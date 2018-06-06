@@ -6,7 +6,7 @@
 #   }
 #
 class profile::gitlab (
-  Boolean $enable_firewall  = true,
+  Boolean $firewall_enabled = true,
   String  $server_name      = $facts['fqdn'],
   String  $ca_file_source   = 'file:///etc/puppetlabs/puppet/ssl/certs/ca.pem',
   String  $key_file_source  = "file:///etc/puppetlabs/puppet/ssl/private_keys/${trusted['certname']}.pem",
@@ -50,7 +50,7 @@ class profile::gitlab (
   }
 
 
-  if $enable_firewall {
+  if $firewall_enabled {
     firewall { '100 Gitlab HTTP 80':
       dport  => '80',
       proto  => 'tcp',

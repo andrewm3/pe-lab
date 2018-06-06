@@ -1,7 +1,7 @@
 # Baseline configuration for Linux operating systems.
 #
 class profile::baseline::linux (
-  Boolean         $enable_firewall   = true,
+  Boolean         $firewall_enabled  = true,
   Hash            $firewall_rules    = {},
   Hash            $firewall_defaults = {},
   String          $default_locale    = 'en_AU.UTF-8',
@@ -12,7 +12,7 @@ class profile::baseline::linux (
   String          $selinux_type      = 'targeted',
 ) {
 
-  if $enable_firewall {
+  if $firewall_enabled {
     include ::firewall
     include profile::baseline::linux::firewall::pre
     include profile::baseline::linux::firewall::post

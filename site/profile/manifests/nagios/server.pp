@@ -3,7 +3,9 @@
 # @example
 #   include profile::nagios::server
 #
-class profile::nagios::server {
+class profile::nagios::server (
+  Boolean $firewall_enabled = true,
+) {
 
   require epel
   require apache
@@ -38,12 +40,14 @@ class profile::nagios::server {
     subscribe => File['/etc/httpd/conf.d/nagios.conf'],
   }
 
-  firewall { '100 Nagios HTTP 80':
-    dport  => '80',
-    proto  => 'tcp',
-    action => 'accept',
-  }
-
   Nagios_host <<||>>
   Nagios_service <<||>>
+
+  if $firewall_enabled {
+    firewall { '100 Nagios HTTP 80':
+      dport  => '80',
+      proto  => 'tcp',
+      action => 'accept',
+    }
+  }
 }
