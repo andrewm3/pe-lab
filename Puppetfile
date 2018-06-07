@@ -33,6 +33,8 @@ mod 'saz/locales',                           '2.5.0'
 mod 'saz/timezone',                          '4.1.1'
 mod 'stm/debconf',                           '2.0.0'
 mod 'palli/createrepo',                      '2.1.0'
+mod 'maestrodev/rvm',                        '1.13.1'
+mod 'golja/gnupg',                           '1.2.3'
 
 # Modules from Git
 # There is nothing here

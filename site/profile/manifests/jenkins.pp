@@ -34,6 +34,21 @@ class profile::jenkins (
     ensure => present,
   }
 
+  # Install RVM so we can run Puppet tests
+  include ::rvm
+
+  rvm::system_user { 'jenkins': }
+
+  rvm_system_ruby { 'ruby-2.4':
+    ensure => present,
+  }
+
+  rvm_gem { 'bundler':
+    ensure       => latest,
+    ruby_version => 'ruby-2.4',
+    require      => Rvm_system_ruby['ruby-2.4'],
+  }
+
   nginx::resource::server { $facts['fqdn']:
     listen_port => 80,
     proxy       => 'http://localhost:8080',

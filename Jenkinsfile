@@ -19,13 +19,14 @@ node {
 
   stage('Lint and unit tests') {
     withEnv(['PATH+LOCAL=/usr/local/bin']) {
-      sh 'ruby -v'
-      sh 'which ruby'
-      sh 'gem install bundler --no-ri --no-rdoc'
-      sh 'bundle install --path vendor/bundle'
-      sh 'bundle exec rake syntax'
-      sh 'bundle exec rake lint'
-      sh 'bundle exec onceover run spec'
+      sh '''#!/bin/bash -l
+      source /usr/local/rvm/scripts/rvm
+      rvm use 2.4
+      bundle install --path vendor/bundle
+      bundle exec rake syntax
+      bundle exec rake lint
+      bundle exec onceover run spec
+      '''
     }
   }
 
