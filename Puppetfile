@@ -14,6 +14,7 @@ mod 'puppetlabs/powershell',                 '2.1.3'
 mod 'puppetlabs/registry',                   '1.1.4'
 mod 'puppetlabs/chocolatey',                 '3.0.0'
 mod 'puppetlabs/apache',                     '2.3.0'
+mod 'puppetlabs/docker',                     '1.1.0'
 
 # Approved modules from the Puppet Forge
 mod 'rtyler/jenkins',                        '1.7.0'
