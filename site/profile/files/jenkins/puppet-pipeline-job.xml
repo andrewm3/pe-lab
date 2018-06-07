@@ -17,7 +17,7 @@
             </org.jenkinsci.plugins.gwt.GenericVariable>
           </genericVariables>
           <regexpFilterText>$repo,$ref</regexpFilterText>
-          <regexpFilterExpression>^pe-lab,refs/heads/staging$</regexpFilterExpression>
+          <regexpFilterExpression>^control-repo,refs/heads/staging$</regexpFilterExpression>
           <genericRequestVariables>
             <org.jenkinsci.plugins.gwt.GenericRequestVariable>
               <key>repo</key>
