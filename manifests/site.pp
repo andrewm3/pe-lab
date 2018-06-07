@@ -23,8 +23,9 @@ Firewall {
 ## Node Definitions ##
 
 node default {
-  if $trusted['extensions']['pp_role'] {
-    $role = $trusted['extensions']['pp_role']
+  $role = $trusted['extensions']['pp_role']
+
+  if $role and $role != '' {
     include "role::${role}"
   } else {
     include profile::baseline
