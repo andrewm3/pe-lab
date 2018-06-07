@@ -6,7 +6,7 @@ resource "openstack_networking_network_v2" "terraform" {
 resource "openstack_networking_subnet_v2" "terraform" {
   name = "terraform"
   network_id = "${openstack_networking_network_v2.terraform.id}"
-  cidr = "192.168.0.0/24"
+  cidr = "${var.subnet_cidr}"
   ip_version = 4
   dns_nameservers = ["8.8.8.8", "8.8.4.4"]
 }
