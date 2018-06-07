@@ -21,29 +21,11 @@ profile::puppet::master_of_masters::node_groups:
       pe_repo::platform::windows_x86_64: {}
       puppet_enterprise::profile::master:
         code_manager_auto_configure: true
-        r10k_remote: 'https://gitlab.openstack.vm/root/control-repo.git'
-      puppet_enterprise::profile::master::mcollective: {}
-      puppet_enterprise::profile::mcollective::peadmin: {}
+        r10k_remote: 'https://gitlab.openstack.vm/puppet/control-repo.git'
     rule:
       - 'or'
       - ['and', ['~', ['trusted', 'certname'], '^puppet-compile-\d+\.openstack\.vm$']]
       - ['=', 'name', 'puppet-master-primary.openstack.vm']
-  'PE ActiveMQ Broker':
-    ensure: present
-    classes:
-      puppet_enterprise::profile::amq::broker:
-        activemq_hubname: ['puppet-master-primary.openstack.vm']
-    rule:
-      - 'or'
-      - ['and', ['~', ['trusted', 'certname'], '^puppet-compile-\d+\.openstack\.vm$']]
-  'PE ActiveMQ Hub':
-    ensure: present
-    parent: 'PE Infrastructure'
-    classes:
-      puppet_enterprise::profile::amq::hub: {}
-    rule:
-      - 'or'
-      - ['and', ['~', ['trusted', 'certname'], '^puppet-master-\w+\.openstack\.vm$']]
   'PE Infrastructure Agent':
     ensure: present
     classes:
@@ -52,9 +34,6 @@ profile::puppet::master_of_masters::node_groups:
         master_uris: ['puppet-master.openstack.vm']
         pcp_broker_list: ['puppet-master-primary.openstack.vm:8142']
         server_list: ['puppet-master-primary.openstack.vm:8140']
-    data:
-      puppet_enterprise::profile::mcollective::agent:
-        activemq_brokers: ['puppet-master-primary.openstack.vm']
     rule:
       - 'or'
       - ['~', ['fact', 'pe_server_version'], '.+']
@@ -66,9 +45,6 @@ profile::puppet::master_of_masters::node_groups:
         manage_puppet_conf: true
         pcp_broker_list: ['puppet-master.openstack.vm:8142']
         server_list: ['puppet-master.openstack.vm:8140']
-    data:
-      puppet_enterprise::profile::mcollective::agent:
-        activemq_brokers: ['puppet-master.openstack.vm']
     rule:
       - 'and'
       - ['~', ['fact', 'aio_agent_version'], '.+']
